@@ -3,21 +3,6 @@
 <head>
 	<title>Moo's Island</title>
 	<link rel="shortcut icon" type="image/x-icon" href="http://mmsmc.github.io/wip-page/assets/logo-solid.svg">
-<!-- JAVASCRIPT to clear search text when the field is clicked -->
-<script type="text/javascript">
-window.onload = function(){ 
-	//Get submit button
-	var submitbutton = document.getElementById("tfq");
-	//Add listener to submit button
-	if(submitbutton.addEventListener){
-		submitbutton.addEventListener("click", function() {
-			if (submitbutton.value == 'Search Google'){//Customize this text string to whatever you want
-				submitbutton.value = '';
-			}
-		});
-	}
-}
-</script>
 <!-- CSS styles for standard search box with placeholder text-->
 <style type="text/css">
 	#tfheader{
@@ -74,7 +59,7 @@ window.onload = function(){
 	<!-- HTML for SEARCH BAR -->
 	<div id="tfheader">
 		<form id="tfnewsearch" method="get" action="http://www.google.com">
-		        <input type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search Google"><input type="submit" value=">" class="tfbutton2">
+		        <input placeholder="Your first name..." type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120" value="Search Google"><input type="submit" value=">" class="tfbutton2">
 		</form>
 		<div class="tfclear"></div>
 	</div>
