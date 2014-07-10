@@ -3,6 +3,15 @@
 <head>
 	<title>Moo's Island</title>
 	<link rel="shortcut icon" type="image/x-icon" href="http://mmsmc.github.io/wip-page/assets/logo-solid.svg">
+	<script>
+function formSubmit()
+{
+var term = document.getElementById("keyword").value;
+window.open('http://www.google.com/#q='+term,'google','width=600,height=600');
+window.open('http://search.yahoo.com/search?p='+term,'yahoo','width=600,height=600');
+window.open('http://www.bing.com/search?q='+term,'bing','width=600,height=600');
+}
+</script>
 <!-- CSS styles for standard search box with placeholder text-->
 <style type="text/css">
 	#tfheader{
@@ -58,8 +67,8 @@
 <body style="background-color:#c3dfef;" align="center">
 	<!-- HTML for SEARCH BAR -->
 	<div id="tfheader">
-		<form id="tfnewsearch" method="get" action="http://www.google.com">
-		        <input placeholder="Search Google" type="text" id="tfq" class="tftextinput2" name="q" size="21" maxlength="120"><input type="submit" value=">" class="tfbutton2">
+		<form id="tfnewsearch">
+		        <input placeholder="Search the Internet" type="text" id="keyword" class="tftextinput2" name="keyword" size="21" maxlength="120"><input type="button" value="SEARCH" class="tfbutton2" onclick="formSubmit()">
 		</form>
 		<div class="tfclear"></div>
 	</div>
