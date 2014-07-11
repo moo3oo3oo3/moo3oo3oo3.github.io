@@ -13,15 +13,11 @@ window.open('http://www.bing.com/search?q='+term,'bing','width=600,height=600');
 }
 </script>
 
-<script> 
- function playSound(){ 
- document.getElementById("sound_element... 
- "<embed src='Audio/keyboard kitty.mp3' hidden=true autostart=true loop=false>"; 
- } 
-function stopSound(){ 
- document.getElementById("sound_element... " " 
- } 
- </script>
+<script>
+var bleep = new Audio();
+bleep.src = 'Audio/keyboard kitty.mp3';
+</script>
+
 <!-- CSS styles for standard search box with placeholder text-->
 <style type="text/css">
 	#tfheader{
@@ -112,9 +108,7 @@ for (var i=0; i < people.length; i++) {
 
 
 <h1 align="center">Welcome to the offical</h1><p><h1 style="color: red" align="center"><b>Website of Moo</b></h1></p>
-<img src="http://th09.deviantart.net/fs71/PRE/f/2010/115/4/3/cow_moo___revised_by_Badriel.png" alt="Happy Cow" align="center">
+<nav><a href="#" onmouseover="moo.play()"><img src="http://th09.deviantart.net/fs71/PRE/f/2010/115/4/3/cow_moo___revised_by_Badriel.png" alt="Happy Cow" align="center"></a></nav>
 <br><br><p></p><audio src="Audio/keyboard kitty.mp3" controls loop autoplay>Your Stipid Browser doesn't support HTML5 Audio</audio></p>
-<br><br><br><input type='button' onMouseOver='playSound()' onMouseOut='stopSound()' /> 
-<div id="sound"></div> 
 </body>
 </html>
