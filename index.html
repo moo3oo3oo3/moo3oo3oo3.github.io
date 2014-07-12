@@ -155,7 +155,8 @@ moo.src = 'Audio/moo.mp3';'Audio/moo.wav'
 
 
 
-	<script>var Unsupported = function (personName) {
+	<script>
+var Unsupported = function (personName) {
     return "This website does not support " + personName;
 }
 var people = ['Internet Explorer', 'Internet Explorer'];
@@ -164,7 +165,8 @@ people.push('moo3oo3oo3 is BOSS!!');
 people.pop();
 for (var i=0; i < people.length; i++) {
     var greeting = Unsupported(people[i]);
-    alert(greeting);
+    //alert(greeting); it's annoying, moo
+    console.log(greeting);
 }</script>
 
 
