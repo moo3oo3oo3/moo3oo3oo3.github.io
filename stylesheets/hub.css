@@ -1,12 +1,8 @@
+
+
+
+
 .sweg
-{
-background-color:black;
-padding:1.5%;
-}
-
-
-
-a
 {
 
 text-decoration:none;
@@ -19,7 +15,7 @@ font-family:helvetica;
 font-size:50px;
 transition:0.7s;
 }
-a:hover
+.sweg:hover
 {
 color:white;
 
