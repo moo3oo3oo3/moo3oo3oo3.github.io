@@ -1,0 +1,16 @@
+.sweg
+{
+text-decoration:none;
+color:blue;
+background-color:black;
+padding:1.5%;
+position:fixed;
+transition: 0.7s;
+font-family:helvetica;
+
+
+}
+.sweg:hover
+{
+color:#999;
+}
