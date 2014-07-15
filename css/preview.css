@@ -1,0 +1,95 @@
+body{overflow:hidden}#top{background-color:transparent}#coord{background:0}#logo{z-index:10}#logo:hover{opacity:.75!important}canvas{cursor:move!important;cursor:url(../images/icon-rotate.png) 16 16!important}
+
+.hover {
+    opacity: 0.2;
+}
+
+body:hover .hover {
+    opacity: 0.8;
+}
+
+.apply, .edit, .download {
+    color: white !important;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    text-align: center;
+    padding: 8px;
+    border-bottom: 15px solid rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 1s ease;
+       -moz-transition: all 1s ease;
+            transition: all 1s ease;
+}
+
+.apply {
+    left: 66.666%;
+    width: 33.333%;
+}
+
+.edit {
+    left: 33.333%;
+    right: 33.333%;
+}
+
+.download {
+    left: 0;
+    right: 66.666%;
+}
+
+.apply {
+    background-color: #494;
+    display: none;
+}
+
+.apply:active {
+    border-bottom: 15px solid rgba(0, 0, 0, 1);
+}
+
+.edit {
+    background-color: #55F;
+}
+
+.edit:active {
+    border-bottom: 15px solid rgba(0, 0, 0, 1);
+}
+
+.download {
+    background-color: #DA4;
+}
+
+.download:active {
+    border-bottom: 15px solid rgba(0, 0, 0, 1);
+}
+
+#display {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.hidebuttons a, .hidebuttons div {
+    visibility: hidden;
+}
+
+#apply option {
+  background: #494;
+  color: white;
+}
+
+#apply-frame {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  border: none;
+  border-top: 8px solid silver;
+  display: none;
+}
+
+canvas {
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
