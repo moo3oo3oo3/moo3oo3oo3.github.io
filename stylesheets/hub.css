@@ -1,24 +1,32 @@
 
+body {
+  background: #eee;
+}
 
-a{text-decoration:none; color:#999;}
+a{
+  text-decoration:none;
+  color:#aaa;
+  transition: all .3s;
+}
+a:hover {
+  color:#fff;
+}
 
 .sweg
 {
 
 text-decoration:none;
-color:#999;
-background-color:black;
-padding:1.5%;
+color:#fff;
+background-color: #fff;
+padding: 20pt;
 position:fixed;
 transition: 0.7s;
 font-family:helvetica;
-font-size:50px;
-transition:0.7s;
+font-size: 50pt;
+transition: all 0.7s;
+border-radius: 2pt;
 }
-.sweg:hover
-{
-color:white;
-
-
-
+.sweg:hover{
+  box-shadow: 0pt 2pt 4pt 0pt rgba(0,0,0,0.23);
+  -webkit-box-shadow: 0pt 2pt 4pt 0pt rgba(0,0,0,0.23);
 }
