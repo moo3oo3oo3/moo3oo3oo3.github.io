@@ -1,0 +1,97 @@
+<html><head>
+    <title>Nova Skin - Minecraft</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js"></script><script async="" src="//ajax.cloudflare.com/cdn-cgi/nexp/dokv=97fb4d042e/cloudflare.min.js"></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dokv=88e434a982/"},atok:"0a00b21ba5683c142464a9efa841134e",petok:"9b5e648bc1510e24a56f1244e1474cc1d69c02c8-1405452876-1800",zone:"novaskin.me",rocket:"0",apps:{"ga_key":{"ua":"UA-5549173-2","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dokv=97fb4d042e/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<link href="css/estilo.css" rel="stylesheet" type="text/css">
+    <link href="css/preview.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script><style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style>
+    <script type="text/javascript" src="js/jquery.getimagedata.min.js"></script>
+    <script type="text/javascript" src="js/jquery.xdomainajax.js"></script>
+    <script type="text/javascript" src="js/jquery.event.wheel-1.0.js"></script>
+    
+    <script type="text/javascript" src="js/design.js"></script>
+    <script type="text/javascript" src="js/transform.js"></script>
+    <script type="text/javascript" src="js/positions.js"></script>
+    <script type="text/javascript" src="js/preview.js"></script>
+    <script type="text/javascript" src="js/anim.js"></script>
+
+    <script type="text/javascript">/* CloudFlare analytics upgrade */
+</script>
+  <script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-5549173-2']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+</head>
+  <body style="background: none">
+
+    <div id="all" class="">
+    <canvas id="display" class="centered" width="300" height="500"></canvas>
+    <a href="http://novaskin.me" target="_newtab"><img id="logo" src="/images/novaskin-powered.png" style="width: 50px;  opacity: 0.75;position: absolute;bottom: 0;right: 0;"></a>
+    
+      <a id="download" href="moo3oo3oo3" target="download" class="hover download">download</a>
+      <a id="edit" href="http://minecraft.novaskin.me/#moo3oo3oo3" target="novaskin" class="hover edit">open in editor</a>
+      <a id="sendToMinecraft" href="http://www.minecraft.net/skin/remote.jsp?url=moo3oo3oo3" target="minecraft" class="hover apply" style="display:block">apply to minecraft</a>
+    
+    <div id="showSkin">
+      <canvas class="skin" id="skin" width="64" height="32"></canvas>
+      <canvas class="skin" id="skinMap" width="512" height="256" style="width: 64px; height: 32px;" title="click to enlarge"></canvas>
+    </div>
+    
+    <div id="toolbar">
+        <div id="coord" class="centered" style="height:38px;max-width: 480px;padding-bottom: 0px;padding-left: 0px;padding-right: 0px;padding-top: 0px;">
+          <div class="button" id="play" style="cursor: pointer;width: 13%;float: left;height: 100%;font-size: 32px;text-shadow: -1px -2px 2px black, 1px 1px 2px white;color: #444;padding: 0;" onclick="play()">?</div>
+          <div class="button" id="rotateleft" style="float: left;height: 100%;width: 13%;padding: 0;font-size: 32px;">?</div>
+          <div class="button" id="rotateright" style="width: 13%;padding: 0;height: 100%;font-size: 32px;float: left;">?</div>
+          <div class="button" id="zoomin" style="float: left;width: 13%;height: 100%;padding: 0;font-size: 32px;">-</div>
+          <div class="button" id="zoomout" style="float: left;height: 100%;width: 13%;font-size: 32px;padding: 0;">+</div>
+          <img class="button" src="/images/picareta.png" id="item" style="float:left;height:100%;padding: 0;margin: 0;top: 0;background:none">
+          <select id="position" style="width: 23%;height: 100%;position:absolute;right:0;"><option value="default">default</option><option value="nice2draw">nice2draw</option><option value="walk">walk</option><option value="hug">hug</option><option value="walk2">walk2</option><option value="jump">jump</option><option value="lookUp">lookUp</option><option value="random">random</option><option value="custom">custom</option></select>
+        </div>
+    </div>
+    
+    <!--[if lt IE 9]>
+
+      <style>
+       #screenshot {
+        position: absolute;
+        left: 100px;
+        top: 20px;
+        margin: 0 auto;
+       }
+       
+       #toolbar, #showSkin {
+        display: none;
+       }
+      </style>
+
+      <div id="prompt">
+        <img id="screenshot"/>
+      </div>
+    <![endif]-->
+
+    <script type="text/javascript">
+      var skinurl = getSkinFromUrl();
+      $('#download').attr('href', /imgur/.test(skinurl) ? skinurl.replace(/i.imgur.com\/(\w+).png/, 'imgur.com/download/$1') : skinurl);
+      $('#edit').attr('href', "http://minecraft.novaskin.me/#" + getSkinFromUrl());
+      $('#sendToMinecraft').attr('href', "http://www.minecraft.net/skin/remote.jsp?url=" + encodeURIComponent(getSkinFromUrl()));
+      if (!/no-buttons/.test(location.href)) $('#all').removeClass('hidebuttons');
+    </script>   
+  
+</div></body></html>
