@@ -1,5 +1,0 @@
-(function(window,Date){var raf=window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||window.oRequestAnimationFrame;window.animLoop=function(render,element){var running,lastFrame=+new Date;function loop(now){if(running!==false){raf?raf(loop,element):setTimeout(loop,16);now=now&&now>1E4?now:+new Date;var deltaT=now- lastFrame;if(deltaT<160){running=render(deltaT,now);}
-lastFrame=now;}}
-loop();};})(window,Date);var animating=false;function play(){if(animating=!animating)
-animLoop(function(delta,now){changePosition({left_arm:{x:Math.cos(now/250)*60- 45,z:-15+ Math.sin(now/500)*10},right_arm:{x:Math.sin(now/500)*30,z:15- Math.sin(now/500)*10},left_leg:{x:Math.cos(now/250)*45,z:-5+ Math.sin(now/500)*5},right_leg:{x:-Math.cos(now/250)*45,z:5- Math.sin(now/500)*5},head:{y:Math.cos(now/1000)*30,x:Math.sin(now/750)*15}});rotatePlayer(2*Math.PI*delta/(1000*10),Math.cos(now/(1000))*delta*Math.PI/10000);draw();return animating;});}
-if(/play=true/.test(location.href))play();
