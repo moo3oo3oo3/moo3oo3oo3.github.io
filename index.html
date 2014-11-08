@@ -3,8 +3,12 @@
     
     <head>
         <!-- Google fonts-->
+        <style>
+            body {
+                font-family:'Oswald', 'Source+Sans+Pro', serif;
+            }
+        </style>
         <link href='http://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro&effect=3d-float' rel='stylesheet' type='text/css'>
-        <link rel="text/css" type="stylesheet" href="css/main.css">
         <title>Moo's Island</title>
         <!-- Favicon that ddoes not work :/-->
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
@@ -24,6 +28,83 @@
             moo.src = 'Audio/moo.mp3';
             'Audio/moo.wav'
         </script>
+        <!-- CSS styles for standard search box-->
+        <style type="text/css">
+            #tfheader {
+                background-color:#c3dfef;
+            }
+            #tfnewsearch {
+                float:right;
+                padding:20px;
+            }
+            .tftextinput2 {
+                margin: 0;
+                padding: 5px 15px;
+                font-family: Sans-Serif, Helvetica, sans-serif;
+                font-size:14px;
+                color:#666;
+                border:1px solid #0076a3;
+                border-right:0px;
+                border-top-left-radius: 5px 5px;
+                border-bottom-left-radius: 5px 5px;
+            }
+            .tfbutton2 {
+                margin: 0;
+                padding: 5px 7px;
+                font-family: Sans-Serif, Helvetica, sans-serif;
+                font-size:14px;
+                font-weight:bold;
+                outline: none;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                color: #ffffff;
+                border: solid 1px #0076a3;
+                border-right:0px;
+                background: #0095cd;
+                background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+                background: -moz-linear-gradient(top, #00adee, #0078a5);
+                border-top-right-radius: 5px 5px;
+                border-bottom-right-radius: 5px 5px;
+            }
+            .tfbutton2:hover {
+                text-decoration: none;
+                background: #007ead;
+                background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+                background: -moz-linear-gradient(top, #0095cc, #00678e);
+            }
+            /* Fixes submit button height problem in Firefox */
+            .tfbutton2::-moz-focus-inner {
+                border: 0;
+            }
+            .tfclear {
+                clear:both;
+            }
+        </style>
+        <!-- CSS for navigation bar-->
+        <style type="text/css">
+            <!-- #navbar ul {
+                margin: 0;
+                padding: 30px;
+                list-style-type: none;
+                text-align: center;
+                background-color: #D4E8F4;
+            }
+            #navbar ul li {
+                display: inline;
+            }
+            #navbar ul li a {
+                text-decoration: none;
+                padding: .6em 3em;
+                color: #B2B2B2;
+                background-color: #D4E8F4;
+            }
+            #navbar ul li a:hover {
+                color: #D4E8F4;
+                background-color: #B2B2B2;
+            }
+            -->
+        </style>
     </head>
     
     <body style="background-color:#c3dfef;" align="center">
@@ -35,33 +116,23 @@
             </form>
             <div class="tfclear"></div>
         </div>
-        <!-- HTML for navigation bar-->
-        <ul id="navbar">
-            <li><a>Report Fourms</a>
+        <!-- HTML for navigation bbar-->
+        <div id="navbar">
+            <ul>
+                <li><a href="http://moo3oo3oo3.github.io/AboutMe.html" style="font-size: 19px;">About Me</a>
 
-                <ul>
-                    <li><a href="http://moo3oo3oo3.github.io/AboutMe.html">About Me</a>
-                    </li>
-                    <li><a href="http://moo3oo3oo3.github.io/hub2.html">Other Websites</a>
-                    </li>
-                </ul>
-            </li>
-            <li><a>Games</a>
+                </li>
+                <li><a href="http://moo3oo3oo3.github.io/hub2.html" style="font-size: 19px;">Other Websites</a>
 
-                <ul>
-                    <li><a href="http://moo3oo3oo3.github.io/SocialMedia.html">Social Media</a>
-                    </li>
-                    <li><a href="">Comming Soon</a>
-                    </li>
-                </ul>
-            </li>
-            <li><a href="http://dimension-network.github.io/staff">Staff</a>
+                </li>
+                <li><a href="#" style="font-size: 19px;">Comming Soon</a>
 
-            </li>
-            <li><a href="">WIP</a>
+                </li>
+                <li><a href="http://moo3oo3oo3.github.io/SocialMedia.html" style="font-size: 19px;">Social Media</a>
 
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
         <!-- Logs that internet explorer does not work-->
         <script>
             var Unsupported = function(personName) {
