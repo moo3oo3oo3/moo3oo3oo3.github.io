@@ -312,7 +312,6 @@ var Troxel = {
   }
 };
 
-module.exports = Troxel;
 
 $(function() {
   $('div[data-troxel-blueprint]').each(function() {
