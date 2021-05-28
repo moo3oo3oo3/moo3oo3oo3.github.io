@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="stylesheet.css">
+	<script src='htmlBuilder.js'></script>
+	<script src='craftingCards.js'></script>
+	<script src='gw2.js'></script>
+</head>
+<body>
+
+	<h1>Guild Wars 2 Daily Crafting Tracker</h1>
+
+	<button class="collapsible">API Key Instructions</button>
+	<div class="content">
+		<ol>
+		  <li>Log in to <a href='https://account.arena.net/applications' target="_blank">https://account.arena.net/applications</a>.</li>
+		  <li>Click on "New Key".</li>
+		  <li>Check mark "inventories", "characters", and "progression".</li>
+		  <li>Click on "CREATE API KEY".</li>
+		  <li>Click on the 2 pieces of paper icon to copy the API key.</li>
+		  <li>Paste API key in the space below.</li>
+		</ol>
+	</div>
+	<button class="collapsible">Button Explanation</button>
+	<div class="content">
+		<p>
+		"Soft Refresh" reloads market price, character inventory, and bank data.<br/><br/>
+		Use "Hard Refresh" when you delete or create characters. Also clears any saved API key and settings.
+		</p>
+	</div>
+	
+	<hr/>
+	
+	<h3>Settings:</h3>
+	<button onClick='softRefresh()'>Soft Refresh</button>
+	<button onClick='hardRefresh()'>Hard Refresh</button>
+	<br/>
+	<input type='checkbox' id='doDeepCrafting' name='doDeepCrafting' value='true' checked>
+	<label for='doDeepCrafting'>Find ingredients for all crafting components.</label>
+	<br/>
+	<input type='checkbox' id='inspectBank' name='inspectBank' value='true' checked>
+	<label for='inspectBank'>Include materials in your bank.</label>
+	<br/>
+	<input type='checkbox' id='inspectInventory' name='inspectInventory' value='true' checked>
+	<label for='inspectInventory'>Include materials in all character inventories.</label>
+	
+	</br>
+	<hr/>
+	
+	<label for='apikey'><b>API key is required:</b></label><br/>
+	<input placeholder='API key' id='apikey' name='apikey' required>
+	<br/><br/>
+	<label for='makeRecipe'>Find the cheapest crafting recipe for this item:</label><br/>
+	<input type='number' id='makeRecipe' placeholder='Item ID' step='1' min='0'>
+	<button onClick="addMakingCard(document.getElementById('makeRecipe').value);">Go</button>
+	<br/><br/>
+	<label for='useRecipe'>Find the most profitable recipe that uses this item:</label><br/>
+	<input type='number' id='useRecipe' placeholder='Item ID' step='1' min='0'>
+	<button onClick="addUsingCard(document.getElementById('useRecipe').value);">Go</button>
+	<br/><br/>
+	<label for='getDailies'>Get the most profitable recipes which use your available time-gated crafting ingredient</label><br/>
+	<button id='getDailies' onClick='dailyCrafting()'>Go</button>
+	
+	<hr/>
+	
+	<div id='craftingCardsContainer'></div>
+	
+	<script src='styles.js'></script>
+	
+</body>
+</html> 
