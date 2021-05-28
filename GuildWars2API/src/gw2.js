@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', e => {
 
 
 async function dailyCrafting() {
+	console.log('BUTTON PRESSED!');
+	toggleLoader('block');
 	const APIKEY = getAPIKey();
 	getSettings();
 	
@@ -76,22 +78,24 @@ function getSettings() {
 
 
 async function addMakingCard(itemID) {
+	toggleLoader('block');
 	const APIKEY = getAPIKey();
 	getSettings();
 	
 	let makeRecipes = await getMakingRecipes(itemID);
-	if (makeRecipes == null) { alert('Item does not have a crafting recipe!'); return; }
+	if (makeRecipes == null) { errMsg('Item does not have a crafting recipe!'); return; }
 	let cheapestRecipe = await findCheapestRecipe(APIKEY, makeRecipes);
 	addCraftingCards(cheapestRecipe);
 }
 
 
 async function addUsingCard(itemID) {
+	toggleLoader('block');
 	const APIKEY = getAPIKey();
 	getSettings();
 	
 	let useRecipes = await getUsedInRecipes(itemID);
-	if (useRecipes == null) { alert('No recipe uses this item!'); return; }
+	if (useRecipes == null) { errMsg('No recipe uses this item!'); return; }
 	let profitRecipe = await findMostProfitableRecipe(APIKEY, useRecipes);
 	addCraftingCards(profitRecipe);
 }
@@ -149,6 +153,24 @@ function softRefresh() {
 function hardRefresh() {
 	softRefresh();
 	localStorage.clear();
+}
+
+
+function toggleLoader(forceState) {
+	let modal = document.getElementById('modal');
+	
+	
+	if (forceState) { modal.style.display = forceState; return; }
+	
+	if (modal.style.display == 'block') { modal.style.display = 'none'; }
+	else if (modal.style.display == 'none') { modal.style.display = 'block'; }
+}
+
+
+//TODO: implement a modal
+function errMsg(msg) {
+	alert(msg);
+	toggleLoader('none');
 }
 
 

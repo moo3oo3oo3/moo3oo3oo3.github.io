@@ -187,6 +187,8 @@ async function addCraftingCards(...recipes) {
 		
 		document.getElementById('craftingCardsContainer').appendChild(card.resume().allDone());
 	}
+	
+	toggleLoader('none');
 }
 
 function displayCoins(prefix, coinsObj) {
