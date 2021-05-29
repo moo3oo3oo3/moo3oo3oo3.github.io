@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', e => {
 
 
 async function dailyCrafting() {
-	console.log('BUTTON PRESSED!');
 	toggleLoader('block');
 	const APIKEY = getAPIKey();
 	getSettings();
@@ -55,7 +54,6 @@ async function dailyCrafting() {
 		finalRecipes.push(profitRecipe);
 	}
 	
-	//console.log(finalRecipes);
 	addCraftingCards(finalRecipes);
 }
 
@@ -84,7 +82,7 @@ async function addMakingCard(itemID) {
 	
 	let makeRecipes = await getMakingRecipes(itemID);
 	if (makeRecipes == null) { errMsg('Item does not have a crafting recipe!'); return; }
-	let cheapestRecipe = await findCheapestRecipe(APIKEY, makeRecipes);
+	let cheapestRecipe = await findCheapestRecipe(APIKEY, 1, makeRecipes);
 	addCraftingCards(cheapestRecipe);
 }
 
@@ -107,7 +105,7 @@ async function findMostProfitableRecipe(apikey, ...recipes) {
 	let profitRecipe = null;
 	for (let recipe of recipesCollapsed) {
 		
-		let cheapRecipe = await findCheapestRecipe(apikey, recipe);
+		let cheapRecipe = await findCheapestRecipe(apikey, 1, recipe);
 		let outputID = cheapRecipe.output_item_id;
 		let outputCount = cheapRecipe.output_item_count;
 		let outputSellPrice = (await getTPPrice(outputID))[outputID].sellPrice;
@@ -174,7 +172,7 @@ function errMsg(msg) {
 }
 
 
-async function findCheapestRecipe(apikey, ...recipes) {
+async function findCheapestRecipe(apikey, recipeAmount, ...recipes) {
 	let recipesCollapsed = Array.isArray(recipes[0]) ? recipes[0] : recipes;
 	
 	let cheapestRecipe = null;
@@ -189,7 +187,7 @@ async function findCheapestRecipe(apikey, ...recipes) {
 		
 		for (let ingredient of recipe.ingredients) { //iterate through ingredients
 			let ingredientID = ingredient.item_id;
-			let ingredientCount = ingredient.count;
+			let ingredientCount = ingredient.count * recipeAmount;
 			
 			//Subtract ingredients if user already has it
 			if ( (inspectBank || inspectInventory) && haveIngredientCounts[ingredientID] == null) {
@@ -199,8 +197,9 @@ async function findCheapestRecipe(apikey, ...recipes) {
 				let difference = clamp(haveIngredientCounts[ingredientID], 0, ingredientCount);
 				ingredientCount -= difference;
 				haveIngredientCounts[ingredientID] -= difference;
+				//console.log('Ingredient Substract', ingredientID);
 				
-				if (ingredientCount == 0) { continue; }
+				if (ingredientCount == 0) { /*console.log('Enough', ingredientID);*/ continue; }
 			}
 			
 			let ingredientTPPrice = await getTPPrice(ingredientID);
@@ -211,7 +210,7 @@ async function findCheapestRecipe(apikey, ...recipes) {
 				let ingredientMakingRecipes = await getMakingRecipes(ingredientID);
 				if (ingredientMakingRecipes == null) { //when ingredient doesn't have crafting recipe 
 					
-					if (ingredientVendorPrice) { //when vendor sells item
+					if (ingredientVendorPrice) { //when vendor sells item. Vendor usually cheapest
 						totalCost += Math.min(ingredientVendorPrice, ingredientBuyPrice) * ingredientCount;
 						//console.log('Vendor', ingredientID, VENDOR_PRICES[ingredientID], ingredientCount);
 					} else { //when uncraftable and no vendor
@@ -226,14 +225,15 @@ async function findCheapestRecipe(apikey, ...recipes) {
 					}
 				
 				} else { //when craftable
-					let cheapestIngredientRecipe = await findCheapestRecipe(apikey, ingredientMakingRecipes);
+					let cheapestIngredientRecipe = await findCheapestRecipe(apikey, ingredientCount, ingredientMakingRecipes);
 					
-					if (cheapestIngredientRecipe.cost < ingredientBuyPrice || ingredientBuyPrice == 0) {
-						totalCost += cheapestIngredientRecipe.cost * ingredientCount;
+					if (cheapestIngredientRecipe.cost < (ingredientBuyPrice * ingredientCount) || ingredientBuyPrice == 0) {
+						totalCost += cheapestIngredientRecipe.cost;
 						//console.log('Crafting', ingredientID, cheapestIngredientRecipe.cost, ingredientCount, cheapestIngredientRecipe);
 						
-						totalBoughtIngredients = addObjs(totalBoughtIngredients, multiplyObjVals(cheapestIngredientRecipe.bought, ingredientCount));
-						totalBoundIngredients = addObjs(totalBoundIngredients, multiplyObjVals(cheapestIngredientRecipe.bound, ingredientCount));
+						totalBoughtIngredients = addObjs(totalBoughtIngredients, cheapestIngredientRecipe.bought);
+						totalBoundIngredients = addObjs(totalBoundIngredients, cheapestIngredientRecipe.bound);
+						totalCraftedIngredients = addObjs(totalCraftedIngredients, cheapestIngredientRecipe.crafted);
 						totalCraftedIngredients[ingredientID] = totalCraftedIngredients[ingredientID] ? totalCraftedIngredients[ingredientID] + ingredientCount : ingredientCount;
 						
 					} else {
@@ -490,7 +490,7 @@ async function getItem(...itemIDs) {
 	let itemData = await getData('v2', 'items', `ids=${itemIDsCollapsed}`)
 	for (let itemObj of itemData) {
 		itemObjs.push(itemObj);
-		sessionStorage.setItem('item|' + itemData.id, JSON.stringify(itemObj));
+		sessionStorage.setItem('item|' + itemObj.id, JSON.stringify(itemObj));
 	}
 	
 	return itemObjs;
