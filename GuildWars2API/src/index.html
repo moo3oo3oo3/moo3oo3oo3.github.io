@@ -22,7 +22,7 @@
 		<ol>
 		  <li>Log in to <a href='https://account.arena.net/applications' target="_blank">https://account.arena.net/applications</a>.</li>
 		  <li>Click on "New Key".</li>
-		  <li>Check mark "inventories", "characters", and "progression".</li>
+		  <li>Check mark "inventories", "characters", "unlocks", and "progression".</li>
 		  <li>Click on "CREATE API KEY".</li>
 		  <li>Click on the 2 pieces of paper icon to copy the API key.</li>
 		  <li>Paste API key in the space below.</li>
@@ -32,7 +32,7 @@
 	<div class="content">
 		<p>
 		"Soft Refresh" reloads market price, character inventory, and bank data.<br/><br/>
-		Use "Hard Refresh" when you delete or create characters. Also clears any saved API key and settings.
+		Use "Hard Refresh" when you delete or create characters and before you use an API key for a different account. Also clears any saved API key and settings.
 		</p>
 	</div>
 	<button class="collapsible">Finding Item IDs</button>
@@ -58,6 +58,9 @@
 	<br/>
 	<input type='checkbox' id='inspectInventory' name='inspectInventory' value='true' checked>
 	<label for='inspectInventory'>Include materials in all character inventories.</label>
+	<br/>
+	<input type='checkbox' id='includeNotLearnedRecipes' name='includeNotLearnedRecipes' value='true'>
+	<label for='includeNotLearnedRecipes'>Include recipes which your characters cannot craft.</label>
 	
 	</br>
 	<hr/>

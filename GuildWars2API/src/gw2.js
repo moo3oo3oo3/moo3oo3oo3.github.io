@@ -13,31 +13,24 @@ const VENDOR_PRICES = {
 	19790: 64 //spool of gossamer thread
 }
 
-var doDeepCrafting = null;
-var inspectBank = null;
-var inspectInventory = null;
+var settings = {
+	'doDeepCrafting': true,
+	'inspectBank': true,
+	'inspectInventory': true,
+	'includeNotLearnedRecipes': true
+}
 
 document.addEventListener('DOMContentLoaded', e => {
 	document.getElementById('apikey').value = getAPIKey();
 	
-	//Check local storage
-	let savedDoDeepCrafting = (localStorage.getItem('setting|doDeepCrafting') === 'true');
-	if (savedDoDeepCrafting != null) {
-		doDeepCrafting = savedDoDeepCrafting;
-		document.getElementById('doDeepCrafting').checked = savedDoDeepCrafting;
+	//Configure based on local storage settings
+	for (setting of Object.keys(settings)) {
+		let savedSetting = ( localStorage.getItem(`setting|${setting}`) === 'true' ); //convert string to bool
+		if (savedSetting != null) {
+			settings[setting] = savedSetting;
+			document.getElementById(setting).checked = savedSetting;
+		}
 	}
-	let savedInspectBank = (localStorage.getItem('setting|inspectBank') === 'true');
-	if (savedInspectBank != null) {
-		inspectBank = savedInspectBank;
-		document.getElementById('inspectBank').checked = savedInspectBank;
-	}
-	let savedInspectInventory = (localStorage.getItem('setting|inspectInventory') === 'true');
-	if (savedInspectInventory != null) {
-		inspectInventory = savedInspectInventory;
-		document.getElementById('inspectInventory').checked = savedInspectInventory;
-	}
-	
-	//getSettings();
 });
 
 
@@ -48,6 +41,9 @@ async function dailyCrafting() {
 	
 	let finalRecipes = [];
 	let needsCrafting = await getNeededDailyCrafting(APIKEY);
+	
+	if (needsCrafting.length == 0) { errMsg('You cannot craft any time-gated recipes yet!'); return; }
+	
 	for (let itemID of needsCrafting) {
 		let useRecipes = await getUsedInRecipes(itemID);
 		let profitRecipe = await findMostProfitableRecipe(APIKEY, useRecipes);
@@ -60,18 +56,11 @@ async function dailyCrafting() {
 
 function getSettings() {
 	
-	let currentDoDeepCrafting = document.getElementById('doDeepCrafting').checked;
-	let currentInspectBank = document.getElementById('inspectBank').checked;
-	let currentInspectInventory = document.getElementById('inspectInventory').checked;
-	
-	doDeepCrafting = currentDoDeepCrafting;
-	localStorage.setItem('setting|doDeepCrafting', currentDoDeepCrafting);
-	
-	inspectBank = currentInspectBank;
-	localStorage.setItem('setting|inspectBank', currentInspectBank);
-	
-	inspectInventory = currentInspectInventory;
-	localStorage.setItem('setting|inspectInventory', currentInspectInventory);
+	for (setting of Object.keys(settings)) {
+		let currentSetting = document.getElementById(setting).checked;
+		settings[setting] = currentSetting;
+		localStorage.setItem(`setting|${setting}`, currentSetting);
+	}
 }
 
 
@@ -106,6 +95,9 @@ async function findMostProfitableRecipe(apikey, ...recipes) {
 	for (let recipe of recipesCollapsed) {
 		
 		let cheapRecipe = await findCheapestRecipe(apikey, 1, recipe);
+		
+		if (cheapRecipe == null) { continue; }
+		
 		let outputID = cheapRecipe.output_item_id;
 		let outputCount = cheapRecipe.output_item_count;
 		let outputSellPrice = (await getTPPrice(outputID))[outputID].sellPrice;
@@ -131,6 +123,11 @@ function getAPIKey() {
 		if (apiKey == storedApiKey || apiKey == '') {
 				return storedApiKey;
 		}
+	}
+	
+	if (apiKey == '') {
+		console.log('API Key is required');
+		return null;
 	}
 	
 	localStorage.setItem('apikey', apiKey);
@@ -165,7 +162,7 @@ function toggleLoader(forceState) {
 }
 
 
-//TODO: implement a modal
+//TODO: implement a modal and create error in console
 function errMsg(msg) {
 	alert(msg);
 	toggleLoader('none');
@@ -178,6 +175,11 @@ async function findCheapestRecipe(apikey, recipeAmount, ...recipes) {
 	let cheapestRecipe = null;
 	
 	for (let recipe of recipesCollapsed) { //Iterate through recipes
+		
+		if (!settings.includeNotLearnedRecipes) { //Remove recipes you cannot craft
+			if ( !( await canCraftRecipe(apikey, recipe) ) ) { continue; }
+		}
+		
 		let outputCount = recipe.output_item_count;
 		let totalCost = 0;
 		let totalBoughtIngredients = {};
@@ -186,11 +188,12 @@ async function findCheapestRecipe(apikey, recipeAmount, ...recipes) {
 		let haveIngredientCounts = {};
 		
 		for (let ingredient of recipe.ingredients) { //iterate through ingredients
+			
 			let ingredientID = ingredient.item_id;
 			let ingredientCount = ingredient.count * recipeAmount;
 			
 			//Subtract ingredients if user already has it
-			if ( (inspectBank || inspectInventory) && haveIngredientCounts[ingredientID] == null) {
+			if ( (settings.inspectBank || settings.inspectInventory) && haveIngredientCounts[ingredientID] == null) {
 				haveIngredientCounts[ingredientID] = await countInventories(apikey, ingredientID);
 			}
 			if (haveIngredientCounts[ingredientID] > 0) {
@@ -206,7 +209,7 @@ async function findCheapestRecipe(apikey, recipeAmount, ...recipes) {
 			let ingredientBuyPrice = ingredientTPPrice[ingredientID].buyPrice;
 			let ingredientVendorPrice = VENDOR_PRICES[ingredientID];
 			
-			if (doDeepCrafting) { //get ingredients for ingredients
+			if (settings.doDeepCrafting) { //get ingredients for ingredients
 				let ingredientMakingRecipes = await getMakingRecipes(ingredientID);
 				if (ingredientMakingRecipes == null) { //when ingredient doesn't have crafting recipe 
 					
@@ -370,10 +373,76 @@ async function getDailyCrafted(apikey) {
 }
 
 
+async function canCraftRecipe(apikey, recipe) {
+	let trainedDisciplines = await getCraftingDisciplines(apikey);
+	
+	for (disciplineName of recipe.disciplines) {
+		if (trainedDisciplines[disciplineName] && trainedDisciplines[disciplineName] >= recipe.min_rating) {
+			if (recipe.flags.includes('AutoLearned')) { return true; }
+			else {
+				let unlockedRecipes = await getUnlockedRecipes(apikey);
+				if (unlockedRecipes.includes(recipe.id)) { return true; }
+			} 
+		}
+	}
+	
+	return false;
+}
+
+
+async function getUnlockedRecipes(apikey) {
+	
+	//Check session storage
+	let storedUnlockedRecipes = localStorage.getItem('unlockedRecipes');
+	if (storedUnlockedRecipes) { return JSON.parse(storedUnlockedRecipes); }
+	
+	let unlockedRecipes = await getData('v2', 'account/recipes', `access_token=${apikey}`);
+	localStorage.setItem('unlockedRecipes', JSON.stringify(unlockedRecipes));
+	
+	return unlockedRecipes;
+}
+
+
+async function getCraftingDisciplines(apikey) {
+	//Check local storage
+	let storedDisciplines = localStorage.getItem('craftingDisciplines');
+	if (storedDisciplines) { return JSON.parse(storedDisciplines); }
+	
+	let accountDisciplines = {};
+	let charNames = await getCharacterNames(apikey);
+	for (name of charNames) {
+		
+		let charDisciplines = (await getCharacterCraftingDisciplines(apikey, name)).crafting;
+		for (discipline of charDisciplines) {
+			
+			if (discipline.active == false) { continue; }
+			
+			let disciplineName = discipline.discipline;
+			if (accountDisciplines[disciplineName] == null) {
+				accountDisciplines[disciplineName] = discipline.rating;
+			} else {
+				if (accountDisciplines[disciplineName] < discipline.rating) {
+					accountDisciplines[disciplineName] = discipline.rating;
+				}
+			}
+		}
+	}
+	
+	localStorage.setItem('craftingDisciplines', JSON.stringify(accountDisciplines));
+	return accountDisciplines;
+}
+
+
+async function getCharacterCraftingDisciplines(apikey, charName) {
+	let name = encodeURIComponent(charName);
+	return await getData('v2', `characters/${name}/crafting`, `access_token=${apikey}`);
+}
+
+
 async function countInventories(apikey, itemID) {
 	let count = 0;
 	
-	if (inspectInventory) {
+	if (settings.inspectInventory) {
 		let sharedInv = await getSharedInventory(apikey);
 		for (itemObj of sharedInv) {
 			if (itemObj != null && itemObj.id == itemID) { count += itemObj.count; }
@@ -390,7 +459,7 @@ async function countInventories(apikey, itemID) {
 		}
 	}
 	
-	if (inspectBank) {
+	if (settings.inspectBank) {
 		let bank = await getBank(apikey);
 		for (itemObj of bank) {
 			if (itemObj != null && itemObj.id == itemID) { count += itemObj.count; }
@@ -556,14 +625,6 @@ function addObjs(obj1, obj2) {
 	return result;
 }
 
-function multiplyObjVals(obj, multiplier) {
-	let result = obj;
-	for (let key of Object.keys(result)) {
-		result[key] = result[key] * multiplier;
-	}
-	
-	return result;
-}
 
 function clamp(num, min, max) {
 	return Math.min(Math.max(min, num), max);
