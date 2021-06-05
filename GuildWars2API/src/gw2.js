@@ -11,6 +11,7 @@ const VENDOR_PRICES = {
 	19750: 16, //lump of coal
 	19924: 48, //lump of primordium
 	19790: 64 //spool of gossamer thread
+	
 }
 
 var settings = {
@@ -72,6 +73,9 @@ async function addMakingCard(itemID) {
 	let makeRecipes = await getMakingRecipes(itemID);
 	if (makeRecipes == null) { errMsg('Item does not have a crafting recipe!'); return; }
 	let cheapestRecipe = await findCheapestRecipe(APIKEY, 1, makeRecipes);
+	
+	if (cheapestRecipe == null) { errMsg('No recipe with these settings exists!'); return; }
+	
 	addCraftingCards(cheapestRecipe);
 }
 
@@ -84,6 +88,12 @@ async function addUsingCard(itemID) {
 	let useRecipes = await getUsedInRecipes(itemID);
 	if (useRecipes == null) { errMsg('No recipe uses this item!'); return; }
 	let profitRecipe = await findMostProfitableRecipe(APIKEY, useRecipes);
+
+	if (Object.keys(profitRecipe.crafted).length == 0 &&
+		Object.keys(profitRecipe.bought).length == 0 &&
+		Object.keys(profitRecipe.bound).length == 0) 
+		{ errMsg('No recipe with these settings exists!'); return; }
+	
 	addCraftingCards(profitRecipe);
 }
 
@@ -229,6 +239,8 @@ async function findCheapestRecipe(apikey, recipeAmount, ...recipes) {
 				
 				} else { //when craftable
 					let cheapestIngredientRecipe = await findCheapestRecipe(apikey, ingredientCount, ingredientMakingRecipes);
+					
+					if (cheapestIngredientRecipe == null) { continue; }
 					
 					if (cheapestIngredientRecipe.cost < (ingredientBuyPrice * ingredientCount) || ingredientBuyPrice == 0) {
 						totalCost += cheapestIngredientRecipe.cost;

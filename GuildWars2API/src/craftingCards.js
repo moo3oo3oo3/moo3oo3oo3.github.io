@@ -56,7 +56,7 @@ async function addCraftingCards(...recipes) {
 				.done()
 				.tag('tr')
 					.tag('th')
-						.text('Accquire these Bound Items')
+						.text('Accquire these Items')
 						.attr('colspan', 2)
 					.done()
 				.done()
