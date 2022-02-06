@@ -12,6 +12,10 @@
 				var imgs = mainContainer.children;
 				for (var i=0; i < imgs.length; i++) {
 					imgs[i].style["opacity"] = 0.6;
+					imgs[i].style["width"] = "201px";
+					imgs[i].style["height"] = "227px";
+					imgs[i].style["object-fit"] = "cover";
+					imgs[i].style["padding"] = "20px 20px 0px 0px";
 					imgs[i].onclick = function() { toggleOpacity(this); };
 				}
 			});
@@ -26,29 +30,29 @@
 	<body>
 		<h1><center>Appeal Survey</center></h1>
 		<h4>Click on the pictures of champions that appeal to you.</h4>
-		<div id="main" style="display: flex; flex-wrap: wrap">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/2a/Ahri_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402215212">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/e/ee/Alistar_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402215238">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/3c/Kindred_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20160526213008">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/35/Lillia_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200707201152">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/43/Nasus_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220659">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/91/Nidalee_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220734">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f9/Nunu_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20180815001402">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/c/ca/Ornn_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170819003104">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/c/c6/Quinn_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220833">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/9a/Rakan_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170404193836">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/b/b3/Rengar_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220904">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/62/Sejuani_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220939">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/d/da/Sett_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200119095456">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/32/Swain_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20180201124449">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/40/Trundle_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221506">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/fb/Twitch_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221633">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/2b/Udyr_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221631">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/6d/Volibear_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200512204952">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/23/Warwick_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170110204118">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/91/Wukong_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402222522">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/4e/Xayah_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170404193839">
-			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/6c/Yuumi_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20190430215817">
+		<div id="main" style="display: flex; flex-wrap: wrap; gap: 10px; padding: 0px 0px 0px 20px; width: 100%;">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt1259276b6d1efa78/5db05fa86e8b0c6d038c5ca2/RiotX_ChampionList_ahri.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt3b366925d2fd8fdb/5db05fa856458c6b3fc1750b/RiotX_ChampionList_alistar.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc0f0007660b7a07b/5db05fd689fb926b491ed823/RiotX_ChampionList_kindred.jpg?quality=90&width=250">
+			<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Lillia_0.jpg">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt20a4b154b1756b56/5db05fe7a6470d6ab91ce5a0/RiotX_ChampionList_nasus.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt5a2da06d413f7c15/5db05ff1df78486c826dcd18/RiotX_ChampionList_nidalee.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltf613746635c6d3c8/5db05ff256458c6b3fc17527/RiotX_ChampionList_nunu.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt639bacdfe8b1fd95/5db05ff1bd24496c390ae4f0/RiotX_ChampionList_ornn.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt5cc3e3a189961d90/5db05ffbadc8656c7d24e7fc/RiotX_ChampionList_quinn.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltbe844b30961ccb7c/5db05ffb2140ec675d68f4ad/RiotX_ChampionList_rakan.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt282bc8e033db4123/5db05ff9adc8656c7d24e7f6/RiotX_ChampionList_rengar.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blte4d521b893aa5a3e/5db05ffae9d7526ab429e544/RiotX_ChampionList_sejuani.jpg?quality=90&width=250">
+			<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Sett_0.jpg">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt1a64e469280b8b9f/5db060030b39e86c2f83dc25/RiotX_ChampionList_swain.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt05eb0518bbe963c0/5db0600ba6470d6ab91ce5b2/RiotX_ChampionList_trundle.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt674dca7d5611ebb0/5db060159481396d6bdd01be/RiotX_ChampionList_twitch.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt8350eda62a9ed56c/5db060150b39e86c2f83dc2b/RiotX_ChampionList_udyr.jpg?quality=90&width=250">
+			<img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Volibear_0.jpg">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt08a92f3897cfc8f5/5db0601ddc674266df3d5d5c/RiotX_ChampionList_warwick.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltaf44673e1a16af30/5db05fe87d28b76cfe439807/RiotX_ChampionList_monkeyking.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt0d029ccdb18a4299/5db0601ba6470d6ab91ce5be/RiotX_ChampionList_xayah.jpg?quality=90&width=250">
+			<img src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blta312e7cca0e594d1/5db0601d2140ec675d68f4c1/RiotX_ChampionList_yuumi.jpg?quality=90&width=250">
 		</div>
 	</body>
 </html>
