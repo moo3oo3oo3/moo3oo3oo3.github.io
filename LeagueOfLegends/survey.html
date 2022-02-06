@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			img {
+				cursor: pointer;
+			}
+		</style>
+		<script>
+			window.addEventListener("load", function() {
+				var mainContainer = document.getElementById("main");
+				var imgs = mainContainer.children;
+				for (var i=0; i < imgs.length; i++) {
+					imgs[i].style["opacity"] = 0.6;
+					imgs[i].onclick = function() { toggleOpacity(this); };
+				}
+			});
+			
+			function toggleOpacity(element) {
+				var currentOpacity = element.style["opacity"];
+				if (currentOpacity == 1) { element.style["opacity"] = 0.6; }
+				else { element.style["opacity"] = 1; }
+			}
+		</script
+	</head>
+	<body>
+		<h1><center>Appeal Survey</center></h1>
+		<h4>Click on the pictures of champions that appeal to you.</h4>
+		<div id="main" style="display: flex; flex-wrap: wrap">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/2a/Ahri_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402215212">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/e/ee/Alistar_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402215238">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/3c/Kindred_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20160526213008">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/35/Lillia_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200707201152">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/43/Nasus_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220659">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/91/Nidalee_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220734">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/f9/Nunu_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20180815001402">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/c/ca/Ornn_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170819003104">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/c/c6/Quinn_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220833">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/9a/Rakan_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170404193836">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/b/b3/Rengar_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220904">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/62/Sejuani_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402220939">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/d/da/Sett_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200119095456">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/3/32/Swain_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20180201124449">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/40/Trundle_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221506">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/f/fb/Twitch_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221633">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/2b/Udyr_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402221631">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/6d/Volibear_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20200512204952">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/2/23/Warwick_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170110204118">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/9/91/Wukong_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20150402222522">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/4/4e/Xayah_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20170404193839">
+			<img src="https://static.wikia.nocookie.net/leagueoflegends/images/6/6c/Yuumi_OriginalSquare.png/revision/latest/scale-to-width-down/42?cb=20190430215817">
+		</div>
+	</body>
+</html>
