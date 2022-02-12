@@ -14,8 +14,10 @@ let shuffledChamps = shuffleArray(Object.keys(champList));
 let likedTraits = {};
 let likedChamps = [];
 let cycles = 0;
+let traitCount = {};
 
 window.addEventListener("load", function() {
+	countTraits();
 	mainContainer = document.getElementById("main");
 	cycleSet(shuffledChamps, tilesPerCycle);
 	/*
@@ -25,6 +27,18 @@ window.addEventListener("load", function() {
 	*/
 	
 });
+
+function countTraits() {
+	Object.values(champList).forEach((traits, i) => {
+		traits.forEach((trait, j) => {
+			if (traitCount.hasOwnProperty(trait)) {
+				traitCount[trait] = traitCount[trait] + 1
+			} else {
+				traitCount[trait] = 0;
+			}
+		});
+	});
+}
 
 function createLoadImg(champName) {
 	return new html('img')
@@ -131,7 +145,7 @@ function similarChamp() {
 		champTraits.forEach((trait, j) => {
 			if (likedTraits.hasOwnProperty(trait)) {
 				let traitValue = likedTraits[trait];
-				tempScore = tempScore + ( traitValue / champTraits.length );
+				tempScore = tempScore + ( traitValue / traitCount[trait] );
 			}
 		});
 		
