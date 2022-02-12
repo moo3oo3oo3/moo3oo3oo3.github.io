@@ -1,0 +1,12 @@
+@font-face {
+	font-family: Friz-Quadrata;
+	src: url('assets/fonts/Friz Quadrata Regular.ttf') format('truetype');
+}
+
+* {
+	font-family: Friz-Quadrata;
+}
+
+img {
+	cursor: pointer;
+}

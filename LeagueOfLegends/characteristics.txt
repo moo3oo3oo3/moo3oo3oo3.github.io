@@ -1,0 +1,131 @@
+build:
+- muscular
+- slender
+- child
+- curvy
+- fat
+
+appendages:
+- horns
+- fur
+- pointed ears
+- feathers
+- scales
+- tails
+- wings
+- tusks
+- tenticles
+
+colors:
+- red
+- black
+- white
+- blue
+- green
+- gold
+- almond
+- purple
+- orange
+- pink
+- gray
+- silver
+- yellow
+- brown
+- magenta
+
+stature:
+- short
+- tall
+
+form:
+- humanoid
+- avian
+- draconic
+- monster
+- arachnid
+- piscine
+- demonic
+- lapidarius
+- mammalian
+- quadrupod
+- arboreal
+- insectoid
+- reptilian
+
+traits:
+- villain
+- hero
+- mythology
+- old
+- young
+- ancient
+- ninja
+- redemption
+- vengeance
+- animal-like
+- undead
+- celestial
+- leader
+- robot
+- cyborg
+- aquatic
+- pirate
+
+personality:
+- serious
+- facetious
+- curious
+- sad
+- wise
+- bloodlust
+- selfish
+- crazy
+- religious
+
+sex:
+- male
+- female
+
+markings:
+- tatoos
+- facial markings
+- patterns
+
+tools:
+- swords
+- shields
+- magic
+- blood
+- katanas
+- guns
+- ice
+- water
+- fire
+- wind
+- earth
+- pets
+- bows
+- music
+- armor
+- staves
+- lances
+- spears
+- electricity
+- strength
+- technology
+- poisons
+- mounts
+- axes
+- scythe
+- clubs
+- trident
+- explosions
+- blades
+- plants
+- hammers
+- tomes
+- shadows
+- shurikens
+- maces
+- chemicals
+- runes
