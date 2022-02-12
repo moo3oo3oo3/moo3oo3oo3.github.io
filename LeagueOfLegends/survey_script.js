@@ -165,7 +165,7 @@ function end() {
 			.attr('for', 'traits')
 			.done()
 		.tag('textarea')
-			.text( processTraits(10).join(', ') )
+			.text( processTraits(15).join(', ') )
 			.attr('readonly')
 			.attr('id', 'traits')
 			.css('width', '100%')
