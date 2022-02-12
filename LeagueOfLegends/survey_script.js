@@ -1,4 +1,14 @@
+//Settings
+let numCycles = 9;
+let tilesPerCycle = 8;
+
+
+//--------------------------------------
+//DO NOT EDIT PAST THIS LINE
+//--------------------------------------
+
 //https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Zeri_0.jpg
+
 let mainContainer;
 let shuffledChamps = shuffleArray(Object.keys(champList));
 let likedTraits = {};
@@ -7,7 +17,7 @@ let cycles = 0;
 
 window.addEventListener("load", function() {
 	mainContainer = document.getElementById("main");
-	cycleSet(shuffledChamps, 8);
+	cycleSet(shuffledChamps, tilesPerCycle);
 	/*
 	.forEach((name, i) => {
 		mainContainer.appendChild(createLoadImg(name));
@@ -70,7 +80,7 @@ function removeAllChildNodes(parent) {
 }
 
 function nextSet() {
-	if (cycles == 8) { end() }
+	if (cycles == numCycles) { end() }
 	
 	mainContainer.childNodes.forEach((child, i) => {
 		if (child.style["opacity"] == 1) {
@@ -88,7 +98,7 @@ function nextSet() {
 	}
 	});
 	
-	cycleSet(shuffledChamps, 8);
+	cycleSet(shuffledChamps, tilesPerCycle);
 	cycles = cycles + 1;
 }
 
