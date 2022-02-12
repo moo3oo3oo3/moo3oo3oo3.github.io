@@ -45,7 +45,7 @@ var champList = {
 	'Ivern' : ['slender', 'horns', 'green', 'brown', 'yellow', 'large', 'humanoid', 'arboreal', 'old', 'redemption', 'facetious', 'wise', 'crazy', 'male', 'magic', 'pets', 'plants'],
 	'Janna' : ['slender', 'white', 'blue', 'humanoid', 'hero', 'mythology', 'female', 'magic', 'staves', 'wind'],
 	'JarvanIV' : ['muscular', 'gold', 'brown', 'humanoid', 'young', 'vengeance', 'leader', 'serious', 'male', 'strength', 'lances'],
-	'Jax' : ['muscular', 'purple', 'humanoid', 'old', 'male', 'strength'],
+	'Jax' : ['muscular', 'purple', 'humanoid', 'old', 'male', 'strength', 'clubs'],
 	'Jayce' : ['muscular', 'gold', 'blue', 'large', 'humanoid', 'leader', 'male', 'technology', 'electricity', 'hammers', 'guns'],
 	'Jhin' : ['white', 'purple', 'gold', 'large', 'humanoid', 'villain', 'crazy', 'bloodlust', 'male', 'technology', 'guns', 'explosions'],
 	'Jinx' : ['slender', 'blue', 'silver', 'purple', 'humanoid', 'young', 'crazy', 'bloodlust', 'female', 'tatoos', 'technology', 'explosions', 'guns'],
