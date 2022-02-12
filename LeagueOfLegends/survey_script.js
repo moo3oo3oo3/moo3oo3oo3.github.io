@@ -50,6 +50,14 @@ function cycleSet(names, amount) {
 			mainContainer.appendChild( createLoadImg( names[0] ) );
 			shuffledChamps.shift();
 		}
+		
+		champList[name].forEach((trait, j) => {
+			if (traitCount[trait]) {
+				traitCount[trait] = traitCount[trait] + 1;
+			} else {
+				traitCount[trait] = 1;
+			}
+		});
 	}
 }
 
@@ -132,7 +140,7 @@ function similarChamp() {
 		champTraits.forEach((trait, j) => {
 			if (likedTraits.hasOwnProperty(trait)) {
 				let traitValue = likedTraits[trait];
-				tempScore = tempScore + ( traitValue / (champTraits.length * .5) );
+				tempScore = tempScore + ( traitValue / traitCount[trait] );
 			}
 		});
 		
