@@ -17,7 +17,6 @@ let cycles = 0;
 let traitCount = {};
 
 window.addEventListener("load", function() {
-	countTraits();
 	mainContainer = document.getElementById("main");
 	cycleSet(shuffledChamps, tilesPerCycle);
 	/*
