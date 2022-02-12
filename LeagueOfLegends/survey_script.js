@@ -140,7 +140,7 @@ function similarChamp() {
 		champTraits.forEach((trait, j) => {
 			if (likedTraits.hasOwnProperty(trait)) {
 				let traitValue = likedTraits[trait];
-				tempScore = tempScore + ( traitValue / traitCount[trait] );
+				tempScore = tempScore + ( traitValue / traitCount[trait] / (champTraits.length * .5) );
 			}
 		});
 		
