@@ -14,7 +14,7 @@ var champList = {
 	'Bard' : ['fat', 'red', 'gold', 'white', 'large', 'humanoid', 'hero', 'mythology', 'ancient', 'celestial', 'wise', 'magic', 'music'],
 	'Blitzcrank' : ['gold', 'large', 'humanoid', 'hero', 'robot', 'curious', 'facetious', 'electricity', 'technology'],
 	'Brand' : ['muscular', 'orange', 'humanoid', 'mythology', 'selfish', 'bloodlust', 'vengeance', 'male', 'magic', 'fire'],
-	'Braum' : ['muscular', 'pink', 'blue', 'large', 'humanoid', 'hero', 'young', 'facetious', 'male', 'tatoos', 'magic', 'strength'],
+	'Braum' : ['muscular', 'pink', 'blue', 'large', 'humanoid', 'hero', 'facetious', 'male', 'tatoos', 'magic', 'strength'],
 	'Caitlyn' : ['slender', 'purple', 'gold', 'humanoid', 'hero', 'young', 'serious', 'female', 'guns', 'technology'],
 	'Camille' : ['slender', 'gray', 'blue', 'large', 'humanoid', 'old', 'cyborg', 'leader', 'serious', 'technology', 'blades'],
 	'Cassiopeia' : ['slender', 'curvy', 'scales', 'green', 'gold', 'almond', 'humanoid', 'reptilian', 'villain', 'mythology', 'young', 'selfish', 'facetious', 'female', 'magic', 'poisons'],

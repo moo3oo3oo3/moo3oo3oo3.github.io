@@ -28,18 +28,6 @@ window.addEventListener("load", function() {
 	
 });
 
-function countTraits() {
-	Object.values(champList).forEach((traits, i) => {
-		traits.forEach((trait, j) => {
-			if (traitCount.hasOwnProperty(trait)) {
-				traitCount[trait] = traitCount[trait] + 1
-			} else {
-				traitCount[trait] = 0;
-			}
-		});
-	});
-}
-
 function createLoadImg(champName) {
 	return new html('img')
 		.attr('src', 'assets/loading/' + champName + '_0.jpg')
@@ -145,7 +133,7 @@ function similarChamp() {
 		champTraits.forEach((trait, j) => {
 			if (likedTraits.hasOwnProperty(trait)) {
 				let traitValue = likedTraits[trait];
-				tempScore = tempScore + ( traitValue / traitCount[trait] );
+				tempScore = tempScore + ( traitValue / champTraits.length );
 			}
 		});
 		
