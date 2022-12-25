@@ -30,8 +30,10 @@ for path, url in pairs(files) do
     file.write( downloader(url) )
     file.close()
 
-    term.setTextColour(colors.lime)
+    term.setTextColor(colors.lime)
     print("Downloaded \"" .. path .. "\"")
 end
 
+print("")
+term.setTextColor(colors.blue)
 print("Please restart the device")
