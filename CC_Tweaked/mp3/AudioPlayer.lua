@@ -1,6 +1,8 @@
+local url = ...
 local AudioPlayer = {}
 
 function AudioPlayer.playURL(dfpwmURL)
+	local dfpwmURL = dfpwmURL or url
 	local dfpwm = require("cc.audio.dfpwm")
 	
 	local speaker = peripheral.find("speaker")
@@ -14,10 +16,19 @@ function AudioPlayer.playURL(dfpwmURL)
 		local buffer = decoder(chunk)
 
 		while not speaker.playAudio(buffer) do
-			os.pullEvent("speaker_audio_empty")
+			local e = os.pullEvent()
+			if e == 'songDone' then return
+			elseif e == 'speaker_audio_empty' then end
 		end
 		
 	end
 end
+
+if url ~= nil then
+	AudioPlayer.playURL(url)
+	os.queueEvent('songDone')
+end
+shell.switchTab( multishell.getCurrent() )
+shell.exit()
 
 return AudioPlayer

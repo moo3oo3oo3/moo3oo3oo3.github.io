@@ -1,5 +1,8 @@
-local Music = require('AudioPlayer')
+--local Music = require('AudioPlayer') *Not needed anymore*
 local completion = require('cc.completion')
+local speaker = peripheral.find('speaker')
+
+if speaker == nil then error('Speaker not detected!') end
 
 --Turns lua string table into lua table
 --Allows auto-updating of song list
@@ -91,12 +94,39 @@ while true do
 	
 	if pageNum ~= nil and pageNum >= 1 and pageNum <= #songTitlePages then
 		pageManager(songTitlePages, pageNum)
+	
 	elseif songs[choice] then
 		term.clear()
 		term.setCursorPos(7, 10)
 		writeCenter(nil, "Now playing:", choice)
-		Music.playURL(songs[choice])
+		
+		--Draw circle with X in the middle
+		term.setCursorPos(12, 17)
+		term.blit('x', 'f', '0')
+		
+		local shellID = shell.openTab('AudioPlayer.lua', songs[choice])
+		multishell.setTitle ( shellID, '' )
+		multishell.setTitle ( multishell.getCurrent(), 'Music Player' )
+		
+		local isSongDone = false
+		while not isSongDone do
+			
+			if multishell.getFocus() ~= multishell.getCurrent() then multishell.setFocus( multishell.getCurrent() ) end --Prevents player from switching tabs
+			
+			local eventName, a, b, c = os.pullEvent()
+			if eventName == 'songDone' then isSongDone = true
+			elseif eventName == 'mouse_click' and a == 1 and b ==12 and c == 17 then --if clicked on X button
+				isSongDone = true
+			end
+			
+		end
+		speaker.stop()
+		shell.switchTab(shellID) --Allows audio player tab to close
+		os.queueEvent('songDone')
+		--Music.playURL(songs[choice]) *Not needed anymore*
+		
 		pageManager(songTitlePages, currentPage)
+	
 	else
 		term.setCursorPos(1, height)
 		term.setTextColor(colors.blue)
