@@ -5,8 +5,9 @@ function AudioPlayer.playURL(dfpwmURL)
 	
 	local speaker = peripheral.find("speaker")
 	local decoder = dfpwm.make_decoder()
-	local songBinary = http.get(dfpwmURL, {}, true).readAll()
+	local songResponse = http.get(dfpwmURL, {}, true)
 	songBinary.close()
+	local songBinary = songResponse.readAll()
 
 	local pattern = string.rep('.', 16384)
 	for chunk in string.gmatch(songBinary, pattern) do
