@@ -33,3 +33,5 @@ for path, url in pairs(files) do
     term.setTextColour(colors.lime)
     print("Downloaded \"" .. path .. "\"")
 end
+
+print("Please restart the device")
