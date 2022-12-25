@@ -7,7 +7,7 @@ function AudioPlayer.playURL(dfpwmURL)
 	local decoder = dfpwm.make_decoder()
 	local songResponse = http.get(dfpwmURL, {}, true)
 	local songBinary = songResponse.readAll()
-	songBinary.close()
+	songResponse.close()
 
 	local pattern = string.rep('.', 16384)
 	for chunk in string.gmatch(songBinary, pattern) do
