@@ -3,9 +3,11 @@ local completion = require('cc.completion')
 
 --Turns lua string table into lua table
 --Allows auto-updating of song list
-local songs = http.get('https://github.com/moo3oo3oo3/moo3oo3oo3.github.io/raw/master/CC_Tweaked/songDirectory.lua', nil, true).readAll()
-songs.close()
-local songs = {['b'] = '2', ['z'] = '26', ['c'] = '3', ['d'] = '4', ['e'] = '5', ['f'] = '6', ['g'] = '7', ['h'] = '8', ['o'] = '15', ['j'] = '10', ['k'] = '11', ['l'] = '12', ['m'] = '13', ['n'] = '14', ['i'] = '9', ['p'] = '16', ['q'] = '17', ['r'] = '18', ['s'] = '19', ['t'] = '20', ['u'] = '21', ['v'] = '22', ['w'] = '23', ['x'] = '24', ['y'] = '25', ['a'] = '1'}
+local songsResponse = http.get('https://raw.githubusercontent.com/moo3oo3oo3/moo3oo3oo3.github.io/master/CC_Tweaked/mp3/songDirectory.lua', nil, true)
+local songs = load('return ' .. songsResponse.readAll())()
+songsResponse.close()
+
+--local songs = {['b'] = '2', ['z'] = '26', ['c'] = '3', ['d'] = '4', ['e'] = '5', ['f'] = '6', ['g'] = '7', ['h'] = '8', ['o'] = '15', ['j'] = '10', ['k'] = '11', ['l'] = '12', ['m'] = '13', ['n'] = '14', ['i'] = '9', ['p'] = '16', ['q'] = '17', ['r'] = '18', ['s'] = '19', ['t'] = '20', ['u'] = '21', ['v'] = '22', ['w'] = '23', ['x'] = '24', ['y'] = '25', ['a'] = '1'}
 
 local width, height = term.getSize()
 local currentPage = 1
