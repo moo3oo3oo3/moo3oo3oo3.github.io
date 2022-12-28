@@ -36,19 +36,18 @@ end
 
 -- Basalt installation
 local basaltInstaller = downloader('https://basalt.madefor.cc/install.lua')
-local file, err = fs.open(path, "wb")
+local file, err = fs.open('basaltInstaller', "wb")
 if not file then
 	printError("Failed to save \"basaltInstaller.lua\"\n" .. err)
 	return
 end
-
 file.write(basaltInstaller)
 file.close()
-
-shell.run('basaltInstaller')
+shell.run('basaltInstaller', 'source')
+fs.delete('basaltInstaller')
 
 term.setTextColor(colors.lime)
-print("Downloaded \"" .. Basalt .. "\"")
+print("Downloaded \"Basalt\"")
 
 print("")
 term.setTextColor(colors.blue)
