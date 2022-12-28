@@ -24,7 +24,7 @@ local function updateSongs()
 	songs = {}
 	songTitles = {}
 	
-	local songsResponse = http.get('https://raw.githubusercontent.com/moo3oo3oo3/moo3oo3oo3.github.io/master/CC_Tweaked/mp3/songDirectory.lua', nil, true)
+	local songsResponse = http.get('https://raw.githubusercontent.com/moo3oo3oo3/moo3oo3oo3.github.io/master/CC_Tweaked/iMoo/songDirectory.lua', nil, true)
 	songs = textutils.unserialise(songsResponse.readAll())
 	songsResponse.close()
 	--[[
