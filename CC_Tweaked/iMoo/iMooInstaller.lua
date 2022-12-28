@@ -35,10 +35,10 @@ for path, url in pairs(files) do
 end
 
 -- Basalt installation
-local basaltInstaller = downloader(https://basalt.madefor.cc/install.lua)
+local basaltInstaller = downloader('https://basalt.madefor.cc/install.lua')
 local file, err = fs.open(path, "wb")
 if not file then
-	printError("Failed to save \"" .. basaltInstaller.lua .. " \n" .. err)
+	printError("Failed to save \"basaltInstaller.lua\"\n" .. err)
 	return
 end
 
