@@ -1,7 +1,23 @@
 local utils = require('iMooUtils')
 local speaker = peripheral.find('speaker')
 
-if speaker == nil then error('Speaker not detected!') end
+local function checkSpeaker()
+	while speaker == nil do
+		term.setCursorPos(1, 17)
+		term.setTextColor(colors.red)
+		term.write('Speaker not detected! Put')
+		term.setCursorPos(1, 18)
+		term.write('one in your inventory!')
+		term.setCursorPos(1, 19)
+		term.write('')
+		term.setCursorPos(1, 20)
+		term.setTextColor(colors.white)
+		term.write('Press any key to continue')
+		os.pullEvent('key')
+		pocket.equipBack()
+		speaker = peripheral.find('speaker')
+	end
+end
 
 local musicPlayer = {}
 
@@ -683,6 +699,8 @@ local function maintainFocus()
 end
 
 function musicPlayer.main(basaltInstance, frame, restart, ...)
+	checkSpeaker()
+	
 	basalt = basaltInstance
 	musicFrame = frame
 	homeRestart = restart
