@@ -17,7 +17,7 @@ local function downloader(url)
     return responseData or ""
 end
 
-local files = load('return ' .. downloader('https://raw.githubusercontent.com/moo3oo3oo3/moo3oo3oo3.github.io/master/CC_Tweaked/mp3/files.lua'))()
+local files = textutils.unserialise(downloader('https://raw.githubusercontent.com/moo3oo3oo3/moo3oo3oo3.github.io/master/CC_Tweaked/iMoo/files.lua'))
 
 for path, url in pairs(files) do
 
@@ -33,6 +33,22 @@ for path, url in pairs(files) do
     term.setTextColor(colors.lime)
     print("Downloaded \"" .. path .. "\"")
 end
+
+-- Basalt installation
+local basaltInstaller = downloader(https://basalt.madefor.cc/install.lua)
+local file, err = fs.open(path, "wb")
+if not file then
+	printError("Failed to save \"" .. basaltInstaller.lua .. " \n" .. err)
+	return
+end
+
+file.write(basaltInstaller)
+file.close()
+
+shell.run('basaltInstaller')
+
+term.setTextColor(colors.lime)
+print("Downloaded \"" .. Basalt .. "\"")
 
 print("")
 term.setTextColor(colors.blue)
