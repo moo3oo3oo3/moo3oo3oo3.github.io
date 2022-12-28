@@ -1,4 +1,3 @@
-local completion = require('cc.completion')
 local utils = require('iMooUtils')
 local speaker = peripheral.find('speaker')
 
@@ -698,13 +697,11 @@ function musicPlayer.main(basaltInstance, frame, restart, ...)
 			if #menuItems ~= 0 then
 				if key == keys.up or key == keys.left then
 					local index = utils.loopClamp(menuIndex - 1, 1, #menuItems)
-					basalt.debug(index, #menuItems)
 					local obj = menuItems[index]:setFocus()
 					currentFocus = obj
 					menuIndex = index
 				elseif key == keys.down or key == keys.right then
 					local index = utils.loopClamp(menuIndex + 1, 1, #menuItems)
-					basalt.debug(index, #menuItems)
 					local obj = menuItems[index]:setFocus()
 					currentFocus = obj
 					menuIndex = index
