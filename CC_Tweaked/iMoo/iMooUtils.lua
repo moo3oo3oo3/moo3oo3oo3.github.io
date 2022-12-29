@@ -26,4 +26,10 @@ function utils.loopClamp(number, minimum, maximum)
 	return number
 end
 
+-- roundTo should be a power of 10 e.g. 1, 10, 100, 0.1, 0.001
+-- so 12.34 with roundTo = 0.1 => 12.3
+function utils.round(number, roundTo)
+	return math.floor( number + roundTo * 0.5 )
+end
+
 return utils

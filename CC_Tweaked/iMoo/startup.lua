@@ -1,9 +1,11 @@
 local basalt = require('basalt')
 local music = require('musicPlayer')
+local colony = require('colonyRecruiter')
 local utils = require('iMooUtils')
 
 local currentFocus
 local focusThread
+local images = {}
 
 local mainFrame = basalt.createFrame()
 	:setBackground(colors.black)
@@ -50,7 +52,7 @@ end
 local selectionFrame = mainFrame:addFrame()
 	:setPosition(2, 5)
 	:setSize(24, 15)
-	:setBackground(colors.gray)
+	:setBackground(colors.gray, '', colors.black)
 	:onScroll(selectionScroll)
 	:onKey(selectionScroll)
 	:setFocus() -- Selection frame needs to be focused first for arrow key scrolling
@@ -81,6 +83,7 @@ local function newProgramObj(imgPath, subText, func, ...)
 			end)
 	end
 	table.insert(combinedObj, img)
+	table.insert(images, img)
 	
 	--Sub text
 	local text = selectionFrame:addLabel(frame)
@@ -121,6 +124,7 @@ end
 
 -- Add programs
 newProgramObj('notes.bimg', 'Music Player', music.main)
+newProgramObj('colonyCompass.bimg', 'Colony Recruiter', colony.main)
 newProgramObj('red_question_mark.bimg', 'Coming Soon')
 
 -- Keep focus to allow arrow key selection
@@ -135,6 +139,10 @@ end
 focusThread = mainFrame:addThread():start(maintainFocus)
 
 function restart()
+	basalt.setActiveFrame(selectionFrame)
+	
+	for i, img in ipairs(images) do img:play(true) end
+	
 	selectionFrame:enable():show()
 	focusThread:start(maintainFocus)
 end

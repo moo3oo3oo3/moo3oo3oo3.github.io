@@ -1,23 +1,5 @@
 local utils = require('iMooUtils')
-local speaker = peripheral.find('speaker')
-
-local function checkSpeaker()
-	while speaker == nil do
-		term.setCursorPos(1, 17)
-		term.setTextColor(colors.red)
-		term.write('Speaker not detected! Put')
-		term.setCursorPos(1, 18)
-		term.write('one in your inventory!')
-		term.setCursorPos(1, 19)
-		term.write('')
-		term.setCursorPos(1, 20)
-		term.setTextColor(colors.white)
-		term.write('Press any key to continue')
-		os.pullEvent('key')
-		pocket.equipBack()
-		speaker = peripheral.find('speaker')
-	end
-end
+local speaker
 
 local musicPlayer = {}
 
@@ -694,9 +676,46 @@ local function maintainFocus()
 	end
 end
 
-function musicPlayer.main(basaltInstance, frame, restart, ...)
-	checkSpeaker()
+local function checkSpeaker()
 	
+	speaker = peripheral.find('speaker')
+	if speaker ~= nil then
+		basalt.setActiveFrame(musicFrame)
+		startPage()
+	return end
+	
+	local errorFrame = musicFrame:addFrame()
+		:setPosition(1, 1)
+		:setSize(26, 20)
+		:setBackground(colors.black)
+		:setFocus()
+	basalt.setActiveFrame(errorFrame)
+	
+		local errorMessage = errorFrame:addLabel()
+			:setPosition(1, 1)
+			:setForeground(colors.lightGray)
+			:setText('Speaker not detected. Put one in your inventory!')
+			
+		local continueMessage = errorFrame:addLabel()
+			:setPosition(1, 20)
+			:setForeground(colors.yellow)
+			:setText('Press any key to continue')
+		
+	errorFrame
+		:onKey(function()
+			pocket.equipBack()
+			speaker = peripheral.find('speaker')
+			
+			if speaker ~= nil then
+				errorFrame:remove()
+				errorFrame = nil
+				basalt.setActiveFrame(musicFrame)
+				startPage()
+			end
+		end)
+end
+
+function musicPlayer.main(basaltInstance, frame, restart, ...)	
 	basalt = basaltInstance
 	musicFrame = frame
 	homeRestart = restart
@@ -724,7 +743,7 @@ function musicPlayer.main(basaltInstance, frame, restart, ...)
 		end)
 		:setFocus()
 	
-	startPage()
+	checkSpeaker()
 end
 
 return musicPlayer
