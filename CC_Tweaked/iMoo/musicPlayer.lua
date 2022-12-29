@@ -332,7 +332,6 @@ local function openAdder(songList, editFrame)
 end
 
 function playingPage(songTitle, program)
-	local previousPage = currentFrame:disable():hide() -- Inactivates playFrame
 	closeFrame()
 	
 	updateSongs()
@@ -413,14 +412,12 @@ function playingPage(songTitle, program)
 		:onClick(function()
 			program:stop()
 			program = nil
-			previousPage:show():enable()
 			playPage(playingFrame)
 		end)
 		:onKey(function(self, event, key)
 			if key == keys.enter or key == keys.space then
 				program:stop()
 				program = nil
-				previousPage:show():enable()
 				playPage(playingFrame)
 			end
 		end)
@@ -428,7 +425,6 @@ function playingPage(songTitle, program)
 	
 	program:onDone(function(self)
 		self = nil
-		previousPage:show():enable()
 		playPage(playingFrame)
 	end)
 	
@@ -469,7 +465,7 @@ function playPage(previousPage)
 				playSong( self:getValue()['args'][2] )
 			end
 		end)
-		:onClick(function(self)
+		:onRelease(function(self)
 			playSong( self:getValue()['args'][2] )
 		end)
 		:onKey(function(self, event, key)
@@ -548,7 +544,7 @@ function editPage(previousPage)
 				openEditor( self:getItem( index ), editFrame )
 			end
 		end)
-		:onClick(function(self)
+		:onRelease(function(self)
 			local index = self:getItemIndex()
 			if index ~= nil then
 				openEditor( self:getItem( index ), editFrame )
