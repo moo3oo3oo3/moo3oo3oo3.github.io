@@ -298,13 +298,13 @@ local function trackingPage(searchName, visitorData, x, y)
 		
 		local title = trackingFrame:addLabel()
 			:setPosition( (26-#searchName+1)/2 + 1 , 2 )
+			:setSize(#searchName, 1)
 			:setBackground(colors.white)
 			:setText(searchName)
 		
-		local saturationText = 'Saturation: ' .. utils.round(visitorData['saturation'], 0.1)
-		local saturation = trackingFrame:addLabel()
-			:setPosition( (26-#saturationText+1)/2 + 1 , 3 )
-			:setText(saturationText)
+		local visitorName = trackingFrame:addLabel()
+			:setPosition( (26-#visitorData['name']+1)/2 + 1 , 3 )
+			:setText(visitorData['name'])
 			
 		for i, skill in ipairs(skills) do
 			local skillLabel = trackingFrame:addLabel()
@@ -314,13 +314,18 @@ local function trackingPage(searchName, visitorData, x, y)
 		end
 		
 		local position = trackingFrame:addLabel()
-			:setPosition(2, 17)
+			:setPosition(2, 16)
 			:setForeground(colors.white)
 			:setBackground(colors.black)
 				
 		local cost = trackingFrame:addLabel()
-			:setPosition(2 , 19)
+			:setPosition(2 , 18)
 			:setText('Cost: ' .. string.gsub( string.match(visitorData['recruitCost'], '.+:(.+)'), '_', ' ' ) )
+		
+		local saturationText = 'Saturation: ' .. utils.round(visitorData['saturation'], 0.1)
+		local saturation = trackingFrame:addLabel()
+			:setPosition(2, 19)
+			:setText(saturationText)
 	
 	trackedVisitor = visitorData['id']
 	trackingLabel = position
