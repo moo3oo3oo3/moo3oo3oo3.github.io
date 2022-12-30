@@ -508,6 +508,7 @@ local function startPage()
 		:onRelease(function(self, event, btn)
 			if btn ~= 1 then return end
 			local index = self:getItemIndex()
+			if index == nil then return end
 			local selectedItem = self:getItem( index )
 			local data = selectedItem['args'][1]
 			loadEditor(searchFrame, data, index)
@@ -531,7 +532,7 @@ end
 local function checkIntegrator()
 	
 	colonyIntegrator = peripheral.find('colonyIntegrator')
-	if speaker ~= nil then
+	if colonyIntegrator ~= nil then
 		basalt.setActiveFrame(colonyFrame)
 		startPage()
 	return end
