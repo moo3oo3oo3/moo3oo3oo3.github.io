@@ -375,7 +375,7 @@ end
 
 local function scanVisitors()
 	while true do
-		if colonyIntegrator ~= nil then
+		if colonyIntegrator ~= nil and colonyIntegrator.isInColony() then
 			notificationList = {}
 			local searches = getData()
 			local visitors = colonyIntegrator.getVisitors()
