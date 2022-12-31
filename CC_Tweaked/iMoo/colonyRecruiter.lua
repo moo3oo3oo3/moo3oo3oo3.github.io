@@ -376,7 +376,15 @@ end
 local function scanVisitors()
 	while true do
 		if colonyIntegrator ~= nil and colonyIntegrator.isInColony() then
+			
+			-- Clears notificationList
+			for i, notification in ipairs(notificationList) do
+				notificationList[i] = nil
+				notification:remove()
+				notification = nil
+			end
 			notificationList = {}
+			
 			local searches = getData()
 			local visitors = colonyIntegrator.getVisitors()
 			
