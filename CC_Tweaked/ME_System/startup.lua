@@ -1,27 +1,24 @@
 --*Config*--
 --This program requires SNBT.lua
 
---Chest relative cardinal direction to ME Bridge
-local bridgeToChest = 'south'
-
---Chest relative directional direction to front of Inventory Manager
-local managerToChest = 'left'
-
 --------------------------------------
 -------Do not go pass this line-------
 local SNBT = require("SNBT")
 
 local chatBox = peripheral.find("chatBox")
-local inventoryManager = peripheral.find("inventoryManager")
 local meBridge = peripheral.find("meBridge")
+local chest = peripheral.find("inventory")
+local inventoryManagers = { peripheral.find("inventoryManager") }
 
 if chatBox == nil then error('Chat Box not detected!') end
-if inventoryManager == nil then error('Inventory Manager not detected!') end
+if #inventoryManagers == 0 then error('Inventory Manager not detected!') end
 if meBridge == nil then error('ME Bridge not detected!') end
 
+local chestName = peripheral.getName(chest)
 local prefix = textutils.serializeJSON({
 	{text = 'ME System', color = 'blue'}
 })
+local managerSides = { 'left', 'right', 'back', 'front', 'top', 'bottom' }
 
 
 function chat (msg, isGlobal, playerName)
@@ -30,6 +27,87 @@ function chat (msg, isGlobal, playerName)
 	if isGlobal then
 		chatBox.sendMessage(msg, prefix)
 	else chatBox.sendMessageToPlayer(msg, playerName, prefix) end
+end
+
+
+local function isArray (tbl)
+	for k,v in pairs(tbl) do
+		if type(k) == 'string' then return false end
+	end
+	
+	return true
+end
+
+
+local function isEmpty (tbl)
+	if next(tbl) then return false end
+	return true
+end
+
+
+local function isValidPlayer (playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then return true end
+	end
+	
+	return false
+end
+
+
+local function importFromManager (amount, slot, playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then
+			for i, side in ipairs(managerSides) do
+				inventoryManager.removeItemFromPlayer(side, amount, slot)
+			end
+			break
+		end
+	end
+end
+
+
+local function exportToManager (itemFingerprint, amount, playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then
+			for i, side in ipairs(managerSides) do
+				inventoryManager.addItemToPlayer(side, amount, 0, itemFingerprint)
+			end
+			break
+		end
+	end
+end
+
+
+local function getItems (playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then
+			return inventoryManager.getItems()
+		end
+	end
+	
+	return {}
+end
+
+
+local function getArmor (playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then
+			return inventoryManager.getArmor()
+		end
+	end
+	
+	return {}
+end
+
+
+local function getOffHand (playerName)
+	for i, inventoryManager in ipairs(inventoryManagers) do
+		if inventoryManager.getOwner() == playerName then
+			return inventoryManager.getItemInOffHand()
+		end
+	end
+	
+	return {}
 end
 
 
@@ -43,15 +121,6 @@ local function findMEItem (requestedItem, requestedAmount)
 	end
 	
 	return nil
-end
-
-
-local function isArray (tbl)
-	for k,v in pairs(tbl) do
-		if type(k) == 'string' then return false end
-	end
-	
-	return true
 end
 
 
@@ -167,7 +236,7 @@ local function getMeSNBT(itemData)
 	return customSNBT
 end
 
-local function retrieveItem (requestedItem, requestedAmount)
+local function retrieveItem (requestedItem, requestedAmount, playerName)
 	requestedAmount = tonumber(requestedAmount)
 	
 	if (requestedAmount ~= nil and requestedItem ~= nil) then -- Checks chat formatting
@@ -181,8 +250,8 @@ local function retrieveItem (requestedItem, requestedAmount)
 			--Sends item to player inventory
 			local itemFingerprint = meItemData['fingerprint']
 			meItemData['count'] = requestedAmount
-			meBridge.exportItem(meItemData, bridgeToChest)
-			inventoryManager.addItemToPlayer(managerToChest, tonumber(requestedAmount), 0, itemfingerprint)
+			meBridge.exportItemToPeripheral(meItemData, chestName)
+			exportToManager(itemFingerprint, requestedAmount, playerName)
 			
 			--Chat preview
 			local snbt = getMeSNBT(meItemData)
@@ -230,6 +299,8 @@ end
 
 local function getPlayerSNBT(nbt)
 	
+	if nbt == nil or isEmpty(nbt) then return "\"\"" end
+	
 	local customSNBT = SNBT:new()
 	  :tbl()
 		:pause()
@@ -243,7 +314,7 @@ local function getPlayerSNBT(nbt)
 	return customSNBT
 end
 
-local function clearSlot (slotNum)
+local function clearSlot (slotNum, playerName)
 	slotNum = tonumber(slotNum)
 	
 	if slotNum == nil then return end
@@ -251,19 +322,19 @@ local function clearSlot (slotNum)
 	local item
 	
 	if slotNum <= 35 then
-		for i, v in ipairs( inventoryManager.getItems() ) do
+		for i, v in ipairs( getItems(playerName) ) do
 			if v['slot'] == slotNum then item = v break end
 		end
 
 	elseif slotNum >= 36 and slotNum <= 39 then
-		for i, v in ipairs( inventoryManager.getArmor() ) do
+		for i, v in ipairs( getArmor(playerName) ) do
 			if v['slot'] - 64 == slotNum then -- Because AdvancedPeripherals is inconsistent in its implementation
 				item = v
 				break
 			end
 		end
 	elseif slotNum == 40 then
-		item = inventoryManager.getItemInOffHand()
+		item = getOffHand(playerName)
 		
 	else chat(slotNum .. ' is an invalid slot number!')
 	end
@@ -273,44 +344,44 @@ local function clearSlot (slotNum)
 	local count = item['count'] or 0
 	item['json'] = getPlayerSNBT(item['nbt'])
 	item['nbt'] = nil
-	inventoryManager.removeItemFromPlayer(managerToChest, count, slotNum)
-	meBridge.importItem(item, bridgeToChest)
+	importFromManager(count, slotNum, playerName)
+	meBridge.importItemFromPeripheral(item, chestName)
 	
 	sleep(0.5)
 end
 
-local function clearItem (itemName)
+local function clearItem (itemName, playerName)
 	if itemName == nil then return end
 	
-	for i, v in ipairs( inventoryManager.getItems() ) do
+	for i, v in ipairs( getItems(playerName) ) do
 		local vName = string.match(v['displayName'], '^%s*%[(.+)%]$')
 		if string.lower(vName) == string.lower(itemName) then
-			inventoryManager.removeItemFromPlayer(managerToChest, v['count'], v['slot'])
+			importFromManager(v['count'], v['slot'], playerName)
 			v['json'] = getPlayerSNBT(v['nbt'])
 			v['nbt'] = nil
-			meBridge.importItem(v, bridgeToChest)
+			meBridge.importItemFromPeripheral(v, chestName)
 		end
 	end
 	
-	for i, v in ipairs( inventoryManager.getArmor() ) do
+	for i, v in ipairs( getArmor(playerName) ) do
 		local vName = string.match(v['displayName'], '^%s*%[(.+)%]$')
 		if string.lower(vName) == string.lower(itemName) then
 			local adjustedSlot = v['slot'] - 64
-			inventoryManager.removeItemFromPlayer(managerToChest, v['count'], adjustedSlot)
+			importFromManager(v['count'], adjustedSlot, playerName)
 			v['json'] = getPlayerSNBT(v['nbt'])
 			v['nbt'] = nil
-			meBridge.importItem(v, bridgeToChest)
+			meBridge.importItemFromPeripheral(v, chestName)
 		end
 	end
 	
-	local offHandItem = inventoryManager.getItemInOffHand()
+	local offHandItem = getOffHand(playerName)
 	if offHandItem['displayName'] ~= nil then
 		local offHandName = string.match(offHandItem['displayName'], '^%s*%[(.+)%]$')
 		if string.lower(offHandName) == string.lower(itemName) then
-			inventoryManager.removeItemFromPlayer(managerToChest, offHandItem['count'], 40)
+			importFromManager(offHandItem['count'], 40, playerName)
 			offHandItem['json'] = getPlayerSNBT(offHandItem['nbt'])
 			offHandItem['nbt'] = nil
-			meBridge.importItem(offHandItem, bridgeToChest)
+			meBridge.importItemFromPeripheral(offHandItem, chestName)
 		end
 	end
 	
@@ -323,21 +394,24 @@ end
 while true do
     local e, playerName, message = os.pullEvent("chat")
     
-	if string.match(message, '^get (%d+) (.+) pls$') then
-		local requestedAmount, requestedItem = string.match(message, '^get (%d+) (.+) pls$')
-		retrieveItem(requestedItem, requestedAmount)
+	if isValidPlayer(playerName) then
 	
-	elseif string.match(message, '^clear .+ pls$') then
-		
-		if string.match(message, '^clear slot %d+ pls$') then
-			local slotNum = string.match(message, '^clear slot (%d+) pls$')
-			clearSlot(slotNum)
+		if string.match(message, '^get (%d+) (.+) pls$') then
+			local requestedAmount, requestedItem = string.match(message, '^get (%d+) (.+) pls$')
+			retrieveItem(requestedItem, requestedAmount, playerName)
 		
 		elseif string.match(message, '^clear .+ pls$') then
-			local itemName = string.match(message, '^clear (.+) pls$')
-			clearItem(itemName)
+			
+			if string.match(message, '^clear slot %d+ pls$') then
+				local slotNum = string.match(message, '^clear slot (%d+) pls$')
+				clearSlot(slotNum, playerName)
+			
+			elseif string.match(message, '^clear .+ pls$') then
+				local itemName = string.match(message, '^clear (.+) pls$')
+				clearItem(itemName, playerName)
+			end
+		
 		end
-	
 	end
 end
 
