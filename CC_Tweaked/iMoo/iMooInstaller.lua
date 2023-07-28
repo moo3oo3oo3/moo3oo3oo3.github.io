@@ -43,7 +43,7 @@ if not file then
 end
 file.write(basaltInstaller)
 file.close()
-shell.run('basaltInstaller', 'source')
+shell.run('basaltInstaller', 'release', 'basalt-1.6.4.lua')
 fs.delete('basaltInstaller')
 
 term.setTextColor(colors.lime)
